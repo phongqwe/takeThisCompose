@@ -1,5 +1,6 @@
 package com.qxdzbc.take_this.select_pane
 
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.LayoutCoordinates
 import com.qxdzbc.common.compose.layout_coor_wrapper.LayoutCoorWrapper
 import com.qxdzbc.take_this.select_rect.SelectRectState

@@ -1,27 +1,29 @@
 package com.qxdzbc.take_this.select_pane
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.isPrimaryPressed
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
-import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.qxdzbc.common.compose.view.MBox
-import com.qxdzbc.take_this.di.DaggerTTComponent
 import com.qxdzbc.take_this.select_pane.action.SelectPaneAction
 import com.qxdzbc.take_this.select_rect.SelectRect
 import kotlinx.coroutines.CoroutineScope
@@ -33,9 +35,9 @@ import kotlinx.coroutines.launch
 fun SelectPane(
     state: SelectPaneState,
     action: SelectPaneAction,
-    coroutineScope:CoroutineScope
+    coroutineScope: CoroutineScope
 ) {
-    val fq = remember{FocusRequester()}
+    val fq = remember { FocusRequester() }
     if (state.isOpened) {
         val l = state.layout
         val wState = rememberWindowState(
@@ -61,7 +63,6 @@ fun SelectPane(
                     .fillMaxSize()
                     .background(Color(0xB6B6B6).copy(alpha = 0.5F))
                     .onPointerEvent(PointerEventType.Press) {
-                        val l = state.layout
                         if (l != null && l.isAttached()) {
                             val mousePos = l.localToWindow(it.changes.first().position)
                             action.startMouseDrag(mousePos)
@@ -69,7 +70,6 @@ fun SelectPane(
                     }
                     .onPointerEvent(PointerEventType.Move) {
                         if (it.buttons.isPrimaryPressed) {
-                            val l = state.layout
                             if (l != null && l.isAttached()) {
                                 val mousePos = l.localToWindow(it.changes.first().position)
                                 action.moveMouseWhileDrag(mousePos)
@@ -97,7 +97,6 @@ fun SelectPane(
                             false
                         }
                     }
-
             ) {
                 val rectState = state.selectRect
                 if (state.selectRect.isActive)
@@ -107,15 +106,19 @@ fun SelectPane(
                         } else {
                             state.selectRect.rect.topLeft
                         }
-                        SelectRect(
-                            state = state.selectRect,
-                            position = position,
-                        )
+                        Canvas(modifier = Modifier.fillMaxSize()) {
+                            drawRect(
+                                color = Color.Blue,
+                                topLeft = position,
+                                alpha = 0.5F,
+                                size = state.selectRect.rect.size,
+                            )
+                        }
                     }
             }
         }
-        SideEffect(){
-            if(state.isFocus){
+        SideEffect {
+            if (state.isFocus) {
                 fq.requestFocus()
             }
         }

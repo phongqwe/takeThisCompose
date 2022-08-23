@@ -1,7 +1,9 @@
 package com.qxdzbc.take_this.app
 
+import androidx.compose.ui.layout.LayoutCoordinates
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.common.compose.StateUtils.toMs
+import com.qxdzbc.common.compose.layout_coor_wrapper.LayoutCoorWrapper
 import com.qxdzbc.take_this.di.EmptyImageMap
 import com.qxdzbc.take_this.di.SelectPaneStateMs
 import com.qxdzbc.take_this.di.SelectRectStateMs
@@ -15,7 +17,8 @@ data class AppStateImp @Inject constructor(
     override val selectorPaneMs: Ms<SelectPaneState>,
     @SelectRectStateMs
     override val selectorRectMs: Ms<SelectRectState>,
-    @EmptyImageMap override val imageMap: Map<@JvmSuppressWildcards String, @JvmSuppressWildcards Ms<ImageWindowState>>
+    @EmptyImageMap override val imageMap: Map<@JvmSuppressWildcards String, @JvmSuppressWildcards Ms<ImageWindowState>>,
+//    override val lcw: LayoutCoorWrapper? = null
 ) : AppState {
 
     override val imageList: List< Ms<ImageWindowState>> get()=imageMap.values.toList()
@@ -31,4 +34,8 @@ data class AppStateImp @Inject constructor(
     override fun addImage(newImage: ImageWindowState): AppState {
         return this.copy(imageMap = imageMap +(newImage.id to newImage.toMs()) )
     }
+
+//    override fun setLcW(i: LayoutCoordinates): AppState {
+//        return this
+//    }
 }
