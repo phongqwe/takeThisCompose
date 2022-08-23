@@ -40,8 +40,6 @@ fun SelectPane(
         val l = state.layout
         val wState = rememberWindowState(
             placement = WindowPlacement.Maximized,
-//            placement = WindowPlacement.Floating,
-//            size = DpSize(500.dp, 500.dp)
         )
         Window(
             onCloseRequest = {
@@ -58,6 +56,7 @@ fun SelectPane(
                     .focusable()
                     .onGloballyPositioned {
                         action.updateSelectPaneLayoutCoor(it)
+                        println("q")
                     }
                     .fillMaxSize()
                     .background(Color(0xB6B6B6).copy(alpha = 0.5F))
