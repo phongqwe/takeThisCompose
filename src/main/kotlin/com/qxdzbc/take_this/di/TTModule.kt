@@ -3,6 +3,8 @@ package com.qxdzbc.take_this.di
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.common.compose.StateUtils.ms
 import com.qxdzbc.common.compose.StateUtils.toMs
+import com.qxdzbc.common.copiers.image_copier.ImageCopier
+import com.qxdzbc.common.copiers.image_copier.ImageCopierImp
 import com.qxdzbc.take_this.app.AppState
 import com.qxdzbc.take_this.app.AppStateImp
 import com.qxdzbc.take_this.image_window.ImageWindowState
@@ -59,5 +61,12 @@ interface TTModule {
         fun robot():Robot{
             return Robot()
         }
+
+        @Provides
+        @TTSingleton
+        fun ImageCopier(): ImageCopier {
+            return ImageCopierImp()
+        }
+
     }
 }

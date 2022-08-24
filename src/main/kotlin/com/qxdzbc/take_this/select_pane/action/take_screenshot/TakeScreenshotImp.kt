@@ -43,9 +43,9 @@ class TakeScreenshotImp @Inject constructor(
             val rt = Image.makeFromBitmap(bImage.toBitmap()).toComposeImageBitmap()
             return ImageWindowStateImp(
                 id = UUID.randomUUID().toString(),
-                painter = rt,
+                image = rt,
                 pinnedOnTop = false,
-                wasDragged = false,
+                allowCloseAfterClick = false,
                 currentPosition = tl,
                 prevPosition = tl,
             )

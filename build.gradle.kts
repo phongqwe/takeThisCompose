@@ -42,9 +42,13 @@ tasks {
 val mockitoVersion = "4.5.1"
 val dagger2Version = "2.43.1"
 val coroutineVersion = "1.6.1"
+val commonLibVersion = "1.0"
 dependencies{
     implementation(compose.desktop.currentOs)
-    implementation("com.qxdzbc:common-compose:1.0")
+    implementation("com.michael-bull.kotlin-result:kotlin-result-jvm:1.1.12")
+    implementation("com.qxdzbc:common:${commonLibVersion}")
+    implementation("com.qxdzbc:err:${commonLibVersion}")
+    implementation("com.qxdzbc:common-compose:${commonLibVersion}")
     implementation("org.jetbrains.compose.material:material-icons-core:1.1.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")

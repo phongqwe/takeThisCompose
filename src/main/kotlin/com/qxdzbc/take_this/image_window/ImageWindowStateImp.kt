@@ -7,17 +7,26 @@ import androidx.compose.ui.unit.dp
 
 data class ImageWindowStateImp(
     override val id: String,
-    override val painter: ImageBitmap,
+    override val image: ImageBitmap,
     override val pinnedOnTop: Boolean,
-    override val wasDragged: Boolean = false,
+    override val allowCloseAfterClick: Boolean = false,
     override val prevPosition: Offset = Offset(0F,0F),
     override val currentPosition: Offset = Offset(0F,0F),
+    override val isButtonVisible: Boolean = false,
 ) : ImageWindowState {
     override val size: DpSize
         get() = DpSize(
-            width = painter.width.dp,
-            height = painter.height.dp
+            width = image.width.dp,
+            height = image.height.dp
         )
+
+    override fun showButton(): ImageWindowState {
+        return this.copy(isButtonVisible = true)
+    }
+
+    override fun hideButton(): ImageWindowState {
+        return this.copy(isButtonVisible = false)
+    }
 
     override fun pin(): ImageWindowState {
         return this.copy(pinnedOnTop = true)
@@ -25,6 +34,10 @@ data class ImageWindowStateImp(
 
     override fun unPin(): ImageWindowState {
         return this.copy(pinnedOnTop = false)
+    }
+
+    override fun switchPin(): ImageWindowState {
+        return this.copy(pinnedOnTop = !pinnedOnTop)
     }
 
     override fun setPrevPosition(i: Offset): ImageWindowState {
@@ -36,6 +49,6 @@ data class ImageWindowStateImp(
     }
 
     override fun setWasDragged(i: Boolean): ImageWindowState {
-        return this.copy(wasDragged = i)
+        return this.copy(allowCloseAfterClick = i)
     }
 }

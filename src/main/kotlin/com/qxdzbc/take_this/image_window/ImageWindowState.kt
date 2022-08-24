@@ -6,12 +6,17 @@ import androidx.compose.ui.unit.DpSize
 
 interface ImageWindowState {
     val id:String
-    val painter: ImageBitmap
+    val image: ImageBitmap
     val size:DpSize
+
+    val isButtonVisible:Boolean
+    fun showButton():ImageWindowState
+    fun hideButton():ImageWindowState
 
     val pinnedOnTop:Boolean
     fun pin():ImageWindowState
     fun unPin():ImageWindowState
+    fun switchPin():ImageWindowState
 
     val prevPosition:Offset
     fun setPrevPosition(i:Offset):ImageWindowState
@@ -19,6 +24,6 @@ interface ImageWindowState {
     val currentPosition:Offset
     fun setCurrentPosition(i:Offset):ImageWindowState
 
-    val wasDragged:Boolean
+    val allowCloseAfterClick:Boolean
     fun setWasDragged(i:Boolean):ImageWindowState
 }

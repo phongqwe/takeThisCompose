@@ -11,7 +11,7 @@ class SetDragImp @Inject constructor(
     @AppStateMs private val appStateMs:Ms<AppState>
 ) : SetDrag {
     private var appState by appStateMs
-    override fun setDragged(id: String, i: Boolean) {
+    override fun setAllowCloseAfterClick(id: String, i: Boolean) {
         appState.getImage(id)?.also { ims->
             ims.value = ims.value.setWasDragged(i)
         }
