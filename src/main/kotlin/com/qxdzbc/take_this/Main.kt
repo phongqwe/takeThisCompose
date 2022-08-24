@@ -18,7 +18,7 @@ fun main() {
         val cs = rememberCoroutineScope()
         val appState by remember{ comp.appStateMs()}
         val selectPaneAction = comp.selectPanelAction()
-        val trayIcon = painterResource("cat.jpg")
+        val trayIcon = painterResource("icon_neon.png")
         for (image in appState.imageList) {
             ImageWindow(
                 state = image.value,
@@ -34,13 +34,13 @@ fun main() {
 
         Tray(
             icon = trayIcon,
-            tooltip = "take this app",
+            tooltip = "takeThis app",
             onAction = { },
             menu = {
-                Item("Exit", onClick = ::exitApplication)
                 Item("take screen shot", onClick = {
                     selectPaneAction.openSelectPane()
                 })
+                Item("Exit", onClick = ::exitApplication)
             },
         )
     }
