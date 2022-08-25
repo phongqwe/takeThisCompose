@@ -44,7 +44,7 @@ class TakeScreenshotImp @Inject constructor(
             return ImageWindowStateImp(
                 id = UUID.randomUUID().toString(),
                 image = rt,
-                pinnedOnTop = false,
+                pinnedOnTop = true,
                 allowCloseAfterClick = false,
                 currentPosition = tl,
                 prevPosition = tl,

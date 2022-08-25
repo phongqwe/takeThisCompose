@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 data class ImageWindowStateImp(
     override val id: String,
     override val image: ImageBitmap,
-    override val pinnedOnTop: Boolean,
+    override val pinnedOnTop: Boolean = true,
     override val allowCloseAfterClick: Boolean = false,
     override val prevPosition: Offset = Offset(0F,0F),
     override val currentPosition: Offset = Offset(0F,0F),
