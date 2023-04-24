@@ -30,8 +30,7 @@ fun ImageWindow(
     state: ImageWindowState,
     action: ImageWindowAction
 ) {
-    val size = state.size
-
+    val size = state.dpSize()
     val windowState = rememberWindowState(
         size = size,
         position = WindowPosition(
@@ -44,7 +43,7 @@ fun ImageWindow(
         state = windowState,
         resizable = false,
         alwaysOnTop = state.pinnedOnTop,
-        undecorated = true,
+        undecorated = false,
 
         ) {
         WindowDraggableArea {

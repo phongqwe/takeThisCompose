@@ -1,5 +1,6 @@
 package com.qxdzbc.take_this.image_window
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.DpSize
@@ -7,7 +8,8 @@ import androidx.compose.ui.unit.DpSize
 interface ImageWindowState {
     val id:String
     val image: ImageBitmap
-    val size:DpSize
+    @Composable
+    fun dpSize():DpSize
 
     val isButtonVisible:Boolean
     fun showButton():ImageWindowState

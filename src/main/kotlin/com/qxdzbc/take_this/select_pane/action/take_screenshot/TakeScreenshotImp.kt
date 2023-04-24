@@ -3,6 +3,7 @@ package com.qxdzbc.take_this.select_pane.action.take_screenshot
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.take_this.app.AppState
@@ -40,10 +41,10 @@ class TakeScreenshotImp @Inject constructor(
                     tl.x.toInt(), tl.y.toInt(), rect.width.toInt(), rect.height.toInt()
                 )
             )
-            val rt = Image.makeFromBitmap(bImage.toBitmap()).toComposeImageBitmap()
+            val img:ImageBitmap = Image.makeFromBitmap(bImage.toBitmap()).toComposeImageBitmap()
             return ImageWindowStateImp(
                 id = UUID.randomUUID().toString(),
-                image = rt,
+                image = img,
                 pinnedOnTop = true,
                 allowCloseAfterClick = false,
                 currentPosition = tl,

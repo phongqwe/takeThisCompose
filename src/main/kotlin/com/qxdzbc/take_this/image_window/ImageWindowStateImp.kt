@@ -1,9 +1,12 @@
 package com.qxdzbc.take_this.image_window
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import java.awt.Toolkit
 
 data class ImageWindowStateImp(
     override val id: String,
@@ -14,11 +17,15 @@ data class ImageWindowStateImp(
     override val currentPosition: Offset = Offset(0F,0F),
     override val isButtonVisible: Boolean = false,
 ) : ImageWindowState {
-    override val size: DpSize
-        get() = DpSize(
-            width = image.width.dp,
-            height = image.height.dp
-        )
+    @Composable
+    override fun dpSize(): DpSize {
+            val width = image.width/ LocalDensity.current.density
+            val height = image.height/ LocalDensity.current.density
+            return DpSize(
+                width = width.dp,
+                height = height.dp
+            )
+        }
 
     override fun showButton(): ImageWindowState {
         return this.copy(isButtonVisible = true)

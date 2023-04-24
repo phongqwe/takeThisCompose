@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 fun SelectPane(
     state: SelectPaneState,
     action: SelectPaneAction,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
 ) {
     val fq = remember { FocusRequester() }
     if (state.isOpened) {
@@ -63,14 +63,14 @@ fun SelectPane(
                     .fillMaxSize()
                     .background(Color(0xB6B6B6).copy(alpha = 0.5F))
                     .onPointerEvent(PointerEventType.Press) {
-                        if (l != null && l.isAttached()) {
+                        if (l != null && l.isAttached) {
                             val mousePos = l.localToWindow(it.changes.first().position)
                             action.startMouseDrag(mousePos)
                         }
                     }
                     .onPointerEvent(PointerEventType.Move) {
                         if (it.buttons.isPrimaryPressed) {
-                            if (l != null && l.isAttached()) {
+                            if (l != null && l.isAttached) {
                                 val mousePos = l.localToWindow(it.changes.first().position)
                                 action.moveMouseWhileDrag(mousePos)
                             }
@@ -101,7 +101,7 @@ fun SelectPane(
                 val rectState = state.selectRect
                 if (state.selectRect.isActive)
                     if (rectState.isActive && rectState.isShow) {
-                        val position = if (l != null && l.isAttached()) {
+                        val position = if (l != null && l.isAttached) {
                             l.localToWindow(state.selectRect.rect.topLeft)
                         } else {
                             state.selectRect.rect.topLeft

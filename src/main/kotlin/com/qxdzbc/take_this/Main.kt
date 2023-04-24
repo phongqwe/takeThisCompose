@@ -4,8 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Tray
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.take_this.app.AppState
 import com.qxdzbc.take_this.di.DaggerTTComponent
@@ -43,5 +47,16 @@ fun main() {
                 Item("Exit", onClick = ::exitApplication)
             },
         )
+
+//        val ws = rememberWindowState(
+//            size = DpSize(300.dp,300.dp)
+//        )
+//
+//        Window(
+//            state = ws,
+//            onCloseRequest = {},
+//        ){
+//
+//        }
     }
 }
