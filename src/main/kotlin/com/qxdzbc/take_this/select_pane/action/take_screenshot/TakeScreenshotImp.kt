@@ -1,10 +1,13 @@
 package com.qxdzbc.take_this.select_pane.action.take_screenshot
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.take_this.app.AppState
 import com.qxdzbc.take_this.app.action.add_image.AddImage
@@ -31,14 +34,20 @@ class TakeScreenshotImp @Inject constructor(
     val appStateMs:Ms<AppState>
 ) : TakeScreenshot {
     val appState by appStateMs
-    override fun takeScreenshot(rect: Rect): ImageWindowState? {
+    override fun takeScreenshot(rect: Rect, density: Density): ImageWindowState? {
         if (rect.width <= 0 || rect.height <= 0) {
             return null
         } else {
-            val tl: Offset = rect.topLeft
+            // this topleft can be used in compose function, but can it be used with awt rectange?
+            val topLeft: Offset = rect.topLeft
+            val x = (topLeft.x/density.density).toInt()
+            val y = (topLeft.y/density.density).toInt()
+            val width = (rect.width/density.density).toInt()
+            val height = (rect.height/density.density).toInt()
             val bImage: BufferedImage = robot.createScreenCapture(
                 Rectangle(
-                    tl.x.toInt(), tl.y.toInt(), rect.width.toInt(), rect.height.toInt()
+                    // image position is wrong
+                    x,y, width,height
                 )
             )
             val img:ImageBitmap = Image.makeFromBitmap(bImage.toBitmap()).toComposeImageBitmap()
@@ -47,16 +56,16 @@ class TakeScreenshotImp @Inject constructor(
                 image = img,
                 pinnedOnTop = true,
                 allowCloseAfterClick = false,
-                currentPosition = tl,
-                prevPosition = tl,
+                currentPosition = topLeft,
+                prevPosition = topLeft,
             )
         }
     }
 
-    override suspend fun takeScreenshot() {
+    override suspend fun takeScreenshot(density: Density) {
         delay(200)
         val rect = selectRectMs.value.rect
-        val newImage: ImageWindowState? = this.takeScreenshot(rect)
+        val newImage: ImageWindowState? = this.takeScreenshot(rect,density)
         if (newImage != null) {
             addImage.addImage(newImage)
         }

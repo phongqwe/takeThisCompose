@@ -12,21 +12,21 @@ class MouseDragActionImp @Inject constructor(
     @SelectRectStateMs
     private val selectRectMs: Ms<SelectRectState>
 ) : MouseDragAction {
-    private var selectRect by selectRectMs
+    private var selectRectState by selectRectMs
     override fun startMouseDrag(mousePosition: Offset) {
-        selectRect = selectRect
+        selectRectState = selectRectState
             .setAnchorPoint(mousePosition)
             .setMovingPoint(mousePosition)
             .activate().show()
     }
 
     override fun moveMouseWhileDrag(mousePosition: Offset) {
-        if(selectRect.isActive){
-            selectRect = selectRect.setMovingPoint(mousePosition)
+        if(selectRectState.isActive){
+            selectRectState = selectRectState.setMovingPoint(mousePosition)
         }
     }
 
     override fun stopMouseDrag() {
-        selectRect = selectRect.hide().deactivate()
+        selectRectState = selectRectState.hide().deactivate()
     }
 }

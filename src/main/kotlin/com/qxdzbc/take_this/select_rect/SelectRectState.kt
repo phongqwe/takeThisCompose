@@ -1,5 +1,6 @@
 package com.qxdzbc.take_this.select_rect
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 
@@ -10,6 +11,8 @@ interface SelectRectState {
     fun hide(): SelectRectState
 
     val rect: Rect
+    @Composable fun rect2(): Rect
+
     val anchorPoint: Offset
     val movingPoint: Offset
 

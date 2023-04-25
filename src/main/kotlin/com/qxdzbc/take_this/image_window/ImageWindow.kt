@@ -17,6 +17,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.isPrimaryPressed
 import androidx.compose.ui.input.pointer.isSecondaryPressed
 import androidx.compose.ui.input.pointer.onPointerEvent
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
@@ -30,11 +31,13 @@ fun ImageWindow(
     state: ImageWindowState,
     action: ImageWindowAction
 ) {
-    val size = state.dpSize()
+    val density = LocalDensity.current
+    val windowSize = state.dpSize(density)
+    val windowPosition = state.currentPosition(density)
     val windowState = rememberWindowState(
-        size = size,
+        size = windowSize,
         position = WindowPosition(
-            x = state.currentPosition.x.dp, y = state.currentPosition.y.dp,
+            x = windowPosition.x.dp, y = windowPosition.y.dp,
         ),
     )
 
@@ -43,7 +46,7 @@ fun ImageWindow(
         state = windowState,
         resizable = false,
         alwaysOnTop = state.pinnedOnTop,
-        undecorated = false,
+        undecorated = true,
 
         ) {
         WindowDraggableArea {
@@ -58,7 +61,7 @@ fun ImageWindow(
                         Image(
                             bitmap = state.image,
                             contentDescription = "Icon",
-                            modifier = Modifier.size(size).onPointerEvent(PointerEventType.Press) {
+                            modifier = Modifier.size(windowSize).onPointerEvent(PointerEventType.Press) {
                                 if (it.buttons.isSecondaryPressed) {
                                     action.setAllowCloseAfterClick(id = state.id, true)
                                 }

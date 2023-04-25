@@ -47,16 +47,5 @@ fun main() {
                 Item("Exit", onClick = ::exitApplication)
             },
         )
-
-//        val ws = rememberWindowState(
-//            size = DpSize(300.dp,300.dp)
-//        )
-//
-//        Window(
-//            state = ws,
-//            onCloseRequest = {},
-//        ){
-//
-//        }
     }
 }

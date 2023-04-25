@@ -20,12 +20,12 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.isPrimaryPressed
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.rememberWindowState
 import com.qxdzbc.common.compose.view.MBox
 import com.qxdzbc.take_this.select_pane.action.SelectPaneAction
-import com.qxdzbc.take_this.select_rect.SelectRect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,13 +52,13 @@ fun SelectPane(
             undecorated = true,
             transparent = true
         ) {
+            val density = LocalDensity.current
             MBox(
                 modifier = Modifier
                     .focusRequester(fq)
                     .focusable()
                     .onGloballyPositioned {
                         action.updateSelectPaneLayoutCoor(it)
-                        println("q")
                     }
                     .fillMaxSize()
                     .background(Color(0xB6B6B6).copy(alpha = 0.5F))
@@ -80,7 +80,7 @@ fun SelectPane(
                         action.stopMouseDrag()
                         action.closeSelectPane()
                         coroutineScope.launch(Dispatchers.Main) {
-                            action.takeScreenshot()
+                            action.takeScreenshot(density)
                         }
                     }.onPreviewKeyEvent {
                         if (it.type == KeyEventType.KeyDown) {
@@ -106,6 +106,11 @@ fun SelectPane(
                         } else {
                             state.selectRect.rect.topLeft
                         }
+                        /**
+                         * this is correctly draw, this means:
+                         * - position in dp is correctly computed
+                         * - size in dp is correctly computed
+                         */
                         Canvas(modifier = Modifier.fillMaxSize()) {
                             drawRect(
                                 color = Color.Blue,
