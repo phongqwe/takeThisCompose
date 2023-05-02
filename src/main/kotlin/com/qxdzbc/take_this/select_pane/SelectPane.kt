@@ -79,9 +79,6 @@ fun SelectPane(
                     .onPointerEvent(PointerEventType.Release) {
                         action.stopMouseDrag()
                         action.closeSelectPane()
-                        coroutineScope.launch(Dispatchers.Main) {
-                            action.takeScreenshot(density)
-                        }
                     }.onPreviewKeyEvent {
                         if (it.type == KeyEventType.KeyDown) {
                             when (it.key) {
@@ -106,11 +103,6 @@ fun SelectPane(
                         } else {
                             state.selectRect.rect.topLeft
                         }
-                        /**
-                         * this is correctly draw, this means:
-                         * - position in dp is correctly computed
-                         * - size in dp is correctly computed
-                         */
                         Canvas(modifier = Modifier.fillMaxSize()) {
                             drawRect(
                                 color = Color.Blue,
@@ -128,17 +120,4 @@ fun SelectPane(
             }
         }
     }
-}
-
-
-fun main() {
-//    val p6Comp = DaggerTTComponent.builder().build()
-//    application {
-//        val action: SelectPaneAction = p6Comp.selectPanelAction()
-//        val selectPanel by p6Comp.appStateMs().value.selectorPaneMs
-//        SelectPane(
-//            state = selectPanel,
-//            action = action
-//        )
-//    }
 }

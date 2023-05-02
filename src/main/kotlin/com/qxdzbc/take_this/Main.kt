@@ -3,18 +3,15 @@ package com.qxdzbc.take_this
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Tray
-import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import androidx.compose.ui.window.rememberWindowState
-import com.qxdzbc.common.compose.Ms
-import com.qxdzbc.take_this.app.AppState
 import com.qxdzbc.take_this.di.DaggerTTComponent
 import com.qxdzbc.take_this.image_window.ImageWindow
 import com.qxdzbc.take_this.select_pane.SelectPane
+import com.qxdzbc.take_this.select_pane.SelectPaneDisapperedFlagView
+import kotlinx.coroutines.launch
 
 fun main() {
     val comp = DaggerTTComponent.builder().build()
@@ -35,6 +32,15 @@ fun main() {
             action = selectPaneAction,
             coroutineScope = cs
         )
+
+        val density = LocalDensity.current
+        if(!appState.selectorPaneMs.value.isOpened){
+            SelectPaneDisapperedFlagView {
+                cs.launch {
+                    selectPaneAction.takeScreenshot(density)
+                }
+            }
+        }
 
         Tray(
             icon = trayIcon,

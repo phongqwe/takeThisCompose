@@ -63,7 +63,7 @@ class TakeScreenshotImp @Inject constructor(
     }
 
     override suspend fun takeScreenshot(density: Density) {
-        delay(200)
+//        delay(200)
         val rect = selectRectMs.value.rect
         val newImage: ImageWindowState? = this.takeScreenshot(rect,density)
         if (newImage != null) {
