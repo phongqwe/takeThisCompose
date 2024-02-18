@@ -6,6 +6,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.isTraySupported
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.take_this.app.AppState
 import com.qxdzbc.take_this.di.DaggerTTComponent
@@ -31,17 +32,20 @@ fun main() {
             action = selectPaneAction,
             coroutineScope = cs
         )
-
-        Tray(
-            icon = trayIcon,
-            tooltip = "takeThis app",
-            onAction = { },
-            menu = {
-                Item("take screen shot", onClick = {
-                    selectPaneAction.openSelectPane()
-                })
-                Item("Exit", onClick = ::exitApplication)
-            },
-        )
+        if(isTraySupported){
+            Tray(
+                icon = trayIcon,
+                tooltip = "takeThis app",
+                onAction = { },
+                menu = {
+                    Item("take screen shot", onClick = {
+                        selectPaneAction.openSelectPane()
+                    })
+                    Item("Exit", onClick = ::exitApplication)
+                },
+            )
+        }else{
+            throw Exception("System does not support tray")
+        }
     }
 }

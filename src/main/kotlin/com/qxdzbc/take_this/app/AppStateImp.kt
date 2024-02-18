@@ -3,7 +3,6 @@ package com.qxdzbc.take_this.app
 import androidx.compose.ui.layout.LayoutCoordinates
 import com.qxdzbc.common.compose.Ms
 import com.qxdzbc.common.compose.StateUtils.toMs
-import com.qxdzbc.common.compose.layout_coor_wrapper.LayoutCoorWrapper
 import com.qxdzbc.take_this.di.EmptyImageMap
 import com.qxdzbc.take_this.di.SelectPaneStateMs
 import com.qxdzbc.take_this.di.SelectRectStateMs

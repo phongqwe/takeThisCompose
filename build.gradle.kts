@@ -5,9 +5,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.6.10"
-    kotlin("kapt") version "1.6.10"
-    id("org.jetbrains.compose") version "1.1.1"
+    kotlin("jvm") version "1.8.0"
+    kotlin("kapt") version "1.8.0"
+    id("org.jetbrains.compose") version "1.4.0"
     id("maven-publish")
     idea
 }
@@ -32,15 +32,17 @@ repositories {
     maven("https://plugins.gradle.org/m2/")
 }
 
-tasks {
-    val jvmVersion = "15"
-    compileKotlin {
-        kotlinOptions { jvmTarget = jvmVersion }
-        sourceCompatibility = jvmVersion
-    }
-}
+//tasks {
+//    val jvmVersion = "15"
+//    compileKotlin {
+//        kotlinOptions { jvmTarget = jvmVersion }
+//        sourceCompatibility = jvmVersion
+//    }
+//}
+
+val composeVersion = "1.4.0"
 val mockitoVersion = "4.5.1"
-val dagger2Version = "2.43.1"
+val dagger2Version = "2.46.1"
 val coroutineVersion = "1.6.1"
 val commonLibVersion = "1.0"
 dependencies{
@@ -49,7 +51,7 @@ dependencies{
     implementation("com.qxdzbc:common:${commonLibVersion}")
     implementation("com.qxdzbc:err:${commonLibVersion}")
     implementation("com.qxdzbc:common-compose:${commonLibVersion}")
-    implementation("org.jetbrains.compose.material:material-icons-core:1.1.1")
+    implementation("org.jetbrains.compose.material:material-icons-core:$composeVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutineVersion")

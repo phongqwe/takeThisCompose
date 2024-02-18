@@ -2,7 +2,6 @@ package com.qxdzbc.take_this.app
 
 import androidx.compose.ui.layout.LayoutCoordinates
 import com.qxdzbc.common.compose.Ms
-import com.qxdzbc.common.compose.layout_coor_wrapper.LayoutCoorWrapper
 import com.qxdzbc.take_this.image_window.ImageWindowState
 import com.qxdzbc.take_this.select_pane.SelectPaneState
 import com.qxdzbc.take_this.select_rect.SelectRectState
